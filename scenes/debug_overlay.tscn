@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://n788o3og131d"]
+
+[ext_resource type="FontFile" uid="uid://chxcwjjcm7k2y" path="res://fonts/Source_Code_Pro/SourceCodePro-VariableFont_wght.ttf" id="1_2gvpf"]
+[ext_resource type="Script" uid="uid://b36ookxkxw7v" path="res://scripts/debug_overlay.gd" id="1_wl0fn"]
+
+[node name="DebugOverlay" type="Label"]
+theme_override_fonts/font = ExtResource("1_2gvpf")
+theme_override_font_sizes/font_size = 24
+script = ExtResource("1_wl0fn")

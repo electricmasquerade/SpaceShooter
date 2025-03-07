@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://dsxomqpiuw4re"]
+
+[ext_resource type="PackedScene" uid="uid://n788o3og131d" path="res://scenes/debug_overlay.tscn" id="1_hkpp5"]
+[ext_resource type="Script" uid="uid://d2sfgt3fyutnl" path="res://scripts/main_root.gd" id="1_mfnvp"]
+[ext_resource type="PackedScene" uid="uid://twvk4eg8dyx6" path="res://scenes/HUD.tscn" id="2_q06i0"]
+[ext_resource type="PackedScene" uid="uid://cm23h55kt4k8r" path="res://scenes/ship.tscn" id="3_tu3ok"]
+[ext_resource type="PackedScene" uid="uid://0uwtri0084jw" path="res://scenes/boundary.tscn" id="5_0kgef"]
+
+[sub_resource type="Environment" id="Environment_0rc6e"]
+background_mode = 1
+
+[node name="MainRoot" type="Node3D"]
+script = ExtResource("1_mfnvp")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 25, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 130, 0)
+fov = 30.0
+
+[node name="DebugOverlay" parent="." instance=ExtResource("1_hkpp5")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+offset_right = 1.0
+grow_vertical = 0
+
+[node name="HUD" parent="." instance=ExtResource("2_q06i0")]
+
+[node name="Ship" parent="." instance=ExtResource("3_tu3ok")]
+
+[node name="Boundary" parent="." instance=ExtResource("5_0kgef")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0rc6e")
