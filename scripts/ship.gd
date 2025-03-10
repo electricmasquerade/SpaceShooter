@@ -2,6 +2,7 @@ extends CharacterBody3D
 
 @export var SPEED = 30
 
+signal player_destroyed()
 
 func _physics_process(delta: float) -> void:
 	# Handle movement
@@ -14,3 +15,7 @@ func _physics_process(delta: float) -> void:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 	move_and_slide()
+
+
+func _on_area_3d_area_entered(area):
+	player_destroyed.emit()

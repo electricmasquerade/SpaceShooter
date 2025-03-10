@@ -11,6 +11,7 @@ var frame_time = 0
 var video_mem = 0
 var player
 var small_stars = 0
+var asteroids = 0
 
 func init(_player):
 	player = _player
@@ -25,13 +26,15 @@ func _process(delta):
 	frame_time = delta
 	video_mem = RenderingServer.get_rendering_info(v) / 1024.0 / 1024.0
 	small_stars = get_tree().get_nodes_in_group("small_star").size()
+	asteroids = get_tree().get_nodes_in_group("enemies").size()
 	
-	var data = "FPS: %d \nDraw Calls: %d \nFrame Time: %f \nVideo Mem: %f MB \nSmall Stars: %d" % [
+	var data = "FPS: %d \nDraw Calls: %d \nFrame Time: %f \nVideo Mem: %f MB \nSmall Stars: %d \nEnemies: %d" % [
 	FPS, 
 	draw_calls, 
 	frame_time, 
 	video_mem,
-	small_stars]
+	small_stars,
+	asteroids]
 	
 	if Utils.is_valid_node(player):
 		data += "\nPlayer Pos: %v \nPlayer Rot: %v" % [player.global_position, player.global_rotation_degrees]

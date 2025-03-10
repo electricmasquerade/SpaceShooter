@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://btkvk74qy24pm"]
+
+[ext_resource type="Script" uid="uid://bcblm8sqhqpib" path="res://scripts/enemy.gd" id="1_6mo6b"]
+[ext_resource type="PackedScene" uid="uid://cr7wxlmv2uqhg" path="res://models/asteroid.blend" id="1_akfqu"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6mo6b"]
+radius = 1.75385
+
+[node name="Asteroid" type="Area3D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_6mo6b")
+
+[node name="asteroid" parent="." instance=ExtResource("1_akfqu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.368109, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0130414, 0, 0)
+shape = SubResource("SphereShape3D_6mo6b")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

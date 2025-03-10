@@ -35,3 +35,5 @@ grow_vertical = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0rc6e")
+
+[connection signal="player_destroyed" from="Ship" to="." method="_on_ship_player_destroyed"]

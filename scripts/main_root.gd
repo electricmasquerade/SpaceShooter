@@ -10,6 +10,13 @@ func _ready():
 		$Boundary/TopWall.position.z, 
 		$Boundary/BottomWall.position.z)
 	GameManager.spawn_stars(self)
+	GameManager.spawn_asteroids(self)
+
 	
 func _process(delta: float) -> void:
 	GameManager.process_background(self, delta)
+
+
+
+func _on_ship_player_destroyed():
+	player.queue_free()

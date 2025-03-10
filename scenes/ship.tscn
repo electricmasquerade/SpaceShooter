@@ -7,6 +7,7 @@
 radius = 3.70963
 
 [node name="Ship" type="CharacterBody3D"]
+collision_mask = 16
 script = ExtResource("1_2gnfn")
 
 [node name="ship" parent="." instance=ExtResource("1_q631a")]
@@ -14,5 +15,14 @@ script = ExtResource("1_2gnfn")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00446177, -0.00873709, 1.14752)
 shape = SubResource("SphereShape3D_q631a")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_mask = 42
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00446177, -0.00873709, 1.14752)
+shape = SubResource("SphereShape3D_q631a")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 
 [editable path="ship"]
