@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cm23h55kt4k8r"]
+[gd_scene load_steps=7 format=3 uid="uid://cm23h55kt4k8r"]
 
 [ext_resource type="Script" uid="uid://bliq12c26mbjg" path="res://scripts/ship.gd" id="1_2gnfn"]
 [ext_resource type="PackedScene" uid="uid://dce5oywt4nv1w" path="res://models/ship.blend" id="1_q631a"]
@@ -6,6 +6,16 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q631a"]
 radius = 3.70963
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4tobq"]
+transparency = 1
+albedo_color = Color(0.3724, 0.7277, 0.76, 0.305882)
+albedo_texture_msdf = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_tfsc7"]
+material = SubResource("StandardMaterial3D_4tobq")
+radius = 4.0
+height = 3.475
 
 [node name="Ship" type="CharacterBody3D" groups=["modules"]]
 collision_mask = 16
@@ -16,16 +26,19 @@ script = ExtResource("1_2gnfn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00446177, -0.00873709, 1.14752)
+visible = false
 shape = SubResource("SphereShape3D_q631a")
 
 [node name="Area3D" type="Area3D" parent="."]
+visible = false
 collision_mask = 42
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="Hitbox" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00446177, -0.00873709, 1.14752)
 shape = SubResource("SphereShape3D_q631a")
 
 [node name="Weapons" type="Node3D" parent="."]
+visible = false
 
 [node name="Center" type="Node3D" parent="Weapons"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.9139)
@@ -47,6 +60,12 @@ script = ExtResource("3_4tobq")
 
 [node name="Direction" type="Node3D" parent="Weapons/LeftMain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.971014)
+
+[node name="Shield" type="Area3D" parent="."]
+
+[node name="Sphere" type="MeshInstance3D" parent="Shield"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.61965)
+mesh = SubResource("SphereMesh_tfsc7")
 
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
 

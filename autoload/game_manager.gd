@@ -26,7 +26,7 @@ func fire_player_weapon(root_node):
 			var bullet = bullet_scene.instantiate()
 			bullet.init(weapon)
 			root_node.add_child(bullet)
-	SoundManager.fire_bullet()
+
 	
 func set_boundary(left, right, top, bottom): 
 	boundary.left = left + boundary_margin
