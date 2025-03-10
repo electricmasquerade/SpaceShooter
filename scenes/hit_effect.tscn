@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdr2g8dfp3mp"]
+
+[ext_resource type="Script" uid="uid://ntwlsj0egxvv" path="res://scripts/hit_effect.gd" id="1_flhpc"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huqvv"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(4.81308e-06, 0.881451, 0.979509, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_o5cci"]
+material = SubResource("StandardMaterial3D_huqvv")
+
+[sub_resource type="Gradient" id="Gradient_o1x8x"]
+offsets = PackedFloat32Array(0.39, 0.64)
+colors = PackedColorArray(0, 0, 0, 1, 0, 0.81185, 0.825764, 1)
+
+[node name="HitEffect" type="CPUParticles3D"]
+amount = 100
+lifetime = 0.3
+local_coords = true
+mesh = SubResource("QuadMesh_o5cci")
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 3.0
+angular_velocity_min = 1.0
+angular_velocity_max = 1.0
+scale_amount_min = 0.05
+scale_amount_max = 0.1
+color_ramp = SubResource("Gradient_o1x8x")
+script = ExtResource("1_flhpc")

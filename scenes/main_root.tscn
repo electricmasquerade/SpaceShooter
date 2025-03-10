@@ -12,8 +12,14 @@ background_mode = 1
 [node name="MainRoot" type="Node3D"]
 script = ExtResource("1_mfnvp")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="MainLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 25, 0)
+light_cull_mask = 4294966783
+
+[node name="DebrisLight" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 25, 0)
+light_color = Color(0.446777, 0.446777, 0.446777, 1)
+light_cull_mask = 4294966784
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 130, 0)

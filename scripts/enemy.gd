@@ -12,4 +12,6 @@ func _process(delta):
 
 
 func _on_area_entered(area):
-	print(area)
+	if area.is_in_group("bullet"):
+		lifecycle.process_hit(self, area)
+		area.queue_free()
