@@ -3,6 +3,7 @@ extends Area3D
 var current_direction
 @export var hit_points = 5.0
 @export var speed = 150.0
+@onready var bullet_trail = $Trail
 
 func init(weapon):
 	position = weapon.global_position
@@ -16,6 +17,6 @@ func init(weapon):
 	
 func _process(delta):
 	translate(Vector3(0,0, -delta*speed))
-	
+	bullet_trail.add_new_point(GameManager.to_2D(global_position))
 	if !GameManager.is_in_boundary(self):
 		queue_free()

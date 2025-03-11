@@ -7,6 +7,7 @@ extends Node
 @onready var hit_effect_scene = preload("res://scenes/hit_effect.tscn")
 
 var player
+var camera
 
 var boundary = {
 	"left": 0, 
@@ -19,6 +20,13 @@ var boundary_margin = 10
 
 func set_player(_player):
 	player = _player
+	
+func set_camera(_camera):	
+	camera = _camera
+	
+func to_2D(vector3):	
+	return camera.unproject_position(vector3)
+	
 	
 func fire_player_weapon(root_node):
 	for weapon in player.weapons:

@@ -1,21 +1,88 @@
-[gd_scene load_steps=7 format=3 uid="uid://cm23h55kt4k8r"]
+[gd_scene load_steps=19 format=3 uid="uid://cm23h55kt4k8r"]
 
 [ext_resource type="Script" uid="uid://bliq12c26mbjg" path="res://scripts/ship.gd" id="1_2gnfn"]
 [ext_resource type="PackedScene" uid="uid://dce5oywt4nv1w" path="res://models/ship.blend" id="1_q631a"]
 [ext_resource type="Script" uid="uid://dvpfut2u42i5t" path="res://scripts/weapons.gd" id="3_4tobq"]
+[ext_resource type="Texture2D" uid="uid://h25to536x3xs" path="res://textures/SciFiArmor/Sci-fi_Armor_001_normal.jpg" id="4_03y04"]
+[ext_resource type="Texture2D" uid="uid://c3g8ysmtwwvcb" path="res://textures/Hexagonal Silver Metal Plates Tilted in Random Directions/metal_0084_height_1k.png" id="5_8qiel"]
+[ext_resource type="Texture2D" uid="uid://cb0lqu6u7kohc" path="res://textures/SciFiArmor/Sci-fi_Armor_001_roughness.jpg" id="5_48mkp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8qiel"]
+transparency = 1
+roughness = 0.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_q631a"]
 radius = 3.70963
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4tobq"]
 transparency = 1
-albedo_color = Color(0.3724, 0.7277, 0.76, 0.305882)
+albedo_color = Color(0.490196, 0.956863, 1, 0.447059)
 albedo_texture_msdf = true
+metallic = 1.0
+metallic_texture_channel = 4
+roughness_texture = ExtResource("5_48mkp")
+roughness_texture_channel = 4
+emission = Color(0.490196, 0.956863, 1, 1)
+emission_energy_multiplier = 0.0
+normal_enabled = true
+normal_texture = ExtResource("4_03y04")
+heightmap_texture = ExtResource("5_8qiel")
+uv1_scale = Vector3(5, 5, 5)
 
 [sub_resource type="SphereMesh" id="SphereMesh_tfsc7"]
 material = SubResource("StandardMaterial3D_4tobq")
-radius = 4.0
-height = 3.475
+radius = 4.5
+height = 9.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_7j21i"]
+radius = 4.5
+
+[sub_resource type="Gradient" id="Gradient_8qiel"]
+offsets = PackedFloat32Array(0, 0.472727, 1)
+colors = PackedColorArray(0.857613, 0.000203497, 0.75275, 1, 0.365527, 0.0822941, 1, 1, 0, 0.996084, 0.996084, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_itrim"]
+gradient = SubResource("Gradient_8qiel")
+
+[sub_resource type="Curve" id="Curve_bseor"]
+_data = [Vector2(0.00729926, 0.825203), 0.0, 0.576114, 0, 0, Vector2(0.923358, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_tlr80"]
+curve = SubResource("Curve_bseor")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_03y04"]
+emission_shape = 1
+emission_sphere_radius = 0.1
+angle_min = 1.07288e-05
+angle_max = 360.0
+direction = Vector3(0, 0, 1)
+spread = 0.0
+initial_velocity_min = 2.0
+initial_velocity_max = 10.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
+linear_accel_min = 0.999998
+linear_accel_max = 5.0
+scale_min = 0.1
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_tlr80")
+color_initial_ramp = SubResource("GradientTexture1D_itrim")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_48mkp"]
+transparency = 1
+blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="QuadMesh" id="QuadMesh_tbq4g"]
+material = SubResource("StandardMaterial3D_48mkp")
 
 [node name="Ship" type="CharacterBody3D" groups=["modules"]]
 collision_mask = 16
@@ -24,13 +91,20 @@ script = ExtResource("1_2gnfn")
 
 [node name="ship" parent="." instance=ExtResource("1_q631a")]
 
+[node name="Wings" parent="ship" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.946389)
+
+[node name="Exhaust" parent="ship" index="3"]
+visible = false
+
+[node name="Cockpit" parent="ship" index="6"]
+surface_material_override/0 = SubResource("StandardMaterial3D_8qiel")
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00446177, -0.00873709, 1.14752)
-visible = false
 shape = SubResource("SphereShape3D_q631a")
 
 [node name="Area3D" type="Area3D" parent="."]
-visible = false
 collision_mask = 42
 
 [node name="Hitbox" type="CollisionShape3D" parent="Area3D"]
@@ -38,7 +112,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00446177, -0.00873709, 1.14
 shape = SubResource("SphereShape3D_q631a")
 
 [node name="Weapons" type="Node3D" parent="."]
-visible = false
 
 [node name="Center" type="Node3D" parent="Weapons"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.9139)
@@ -64,9 +137,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.971014)
 [node name="Shield" type="Area3D" parent="."]
 
 [node name="Sphere" type="MeshInstance3D" parent="Shield"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.61965)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 1.6)
 mesh = SubResource("SphereMesh_tfsc7")
 
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Shield"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.6)
+shape = SubResource("SphereShape3D_7j21i")
+
+[node name="Flames" type="Node3D" parent="."]
+
+[node name="LeftFlame" type="GPUParticles3D" parent="Flames"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.57952, 0, 3.8307)
+amount = 200
+lifetime = 0.2
+local_coords = true
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_03y04")
+draw_pass_1 = SubResource("QuadMesh_tbq4g")
+
+[node name="RightFlame" type="GPUParticles3D" parent="Flames"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.576407, 0, 3.8307)
+amount = 200
+lifetime = 0.2
+local_coords = true
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_03y04")
+draw_pass_1 = SubResource("QuadMesh_tbq4g")
+
 [connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="area_entered" from="Shield" to="." method="_on_shield_area_entered"]
 
 [editable path="ship"]

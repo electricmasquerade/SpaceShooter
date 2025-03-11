@@ -2,7 +2,8 @@ extends Node3D
 
 @onready var debug_overlay = $DebugOverlay
 @onready var player = $Ship
-
+@onready var hud = $HUD
+@onready var camera = $Camera3D
 
 var fire_cadence = 0.2
 var fire_cooldown = 0.0
@@ -17,6 +18,8 @@ func _ready():
 	GameManager.spawn_asteroids(self)
 	player.init()
 	GameManager.set_player(player)
+	player.update_hud.connect(_on_update_hud)
+	GameManager.set_camera(camera)
 
 	
 func _process(delta: float) -> void:
@@ -31,7 +34,8 @@ func fire_bullet():
 		fire_cooldown = fire_cadence
 		GameManager.fire_player_weapon(self)
 	
-
+func _on_update_hud():
+	hud.set_player_values(player)
 
 func _on_ship_player_destroyed():
 	GameManager.create_explosion(self, player, 30, 30)

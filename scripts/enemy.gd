@@ -15,3 +15,6 @@ func _on_area_entered(area):
 	if area.is_in_group("bullet"):
 		lifecycle.process_hit(self, area)
 		area.queue_free()
+
+func explode():
+	lifecycle.explode(self)
