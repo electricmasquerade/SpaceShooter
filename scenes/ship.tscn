@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://cm23h55kt4k8r"]
+[gd_scene load_steps=20 format=3 uid="uid://cm23h55kt4k8r"]
 
 [ext_resource type="Script" uid="uid://bliq12c26mbjg" path="res://scripts/ship.gd" id="1_2gnfn"]
 [ext_resource type="PackedScene" uid="uid://dce5oywt4nv1w" path="res://models/ship.blend" id="1_q631a"]
+[ext_resource type="Material" uid="uid://bjqfpio3ncw7m" path="res://shaders/carbon_fiber.tres" id="3_3m36u"]
 [ext_resource type="Script" uid="uid://dvpfut2u42i5t" path="res://scripts/weapons.gd" id="3_4tobq"]
 [ext_resource type="Texture2D" uid="uid://h25to536x3xs" path="res://textures/SciFiArmor/Sci-fi_Armor_001_normal.jpg" id="4_03y04"]
 [ext_resource type="Texture2D" uid="uid://c3g8ysmtwwvcb" path="res://textures/Hexagonal Silver Metal Plates Tilted in Random Directions/metal_0084_height_1k.png" id="5_8qiel"]
@@ -91,8 +92,12 @@ script = ExtResource("1_2gnfn")
 
 [node name="ship" parent="." instance=ExtResource("1_q631a")]
 
+[node name="Body" parent="ship" index="0"]
+surface_material_override/0 = ExtResource("3_3m36u")
+
 [node name="Wings" parent="ship" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.946389)
+surface_material_override/0 = ExtResource("3_3m36u")
 
 [node name="Exhaust" parent="ship" index="3"]
 visible = false

@@ -76,19 +76,6 @@ func process_background(root_node, delta):
 		
 # Asteroid functions
 
-func spawn_asteroids(root_node):
-	for i in 5:
-		var spawn: Dictionary = {
-			"coords": Vector3(-40 + i*20, 0, -30),
-			"scale": Utils.get_random_vector3_in_range(1,4),
-			"direction": Vector3(0, 0, randf_range(5.0, 15.0)),
-			"rotation": Utils.get_random_vector3_in_range(0.1, 1.0),
-			"hit_points": 20
-		}
-		var asteroid: Node    = asteroid_scene.instantiate()
-		asteroid.init(root_node, spawn)
-		root_node.add_child(asteroid)
-
 func create_explosion(root_node, source_node, width, height):
 	var explosion = explosion_scene.instantiate()
 	var speed = 1.0
@@ -136,3 +123,11 @@ func create_debris_from_module(root_node, module, scale):
 	debris.set_layer_mask_value(1, false)
 	debris.set_layer_mask_value(10, true)
 	root_node.add_child(debris)
+
+func fire_enemy_weapon(root_node, enemy, event):	
+	for weapon in enemy.weapons:
+		if weapon.name == event.fire.weapon:
+			if is_in_boundary(weapon,false):
+				var bullet = bullet_scene.instantiate()
+				bullet.init(weapon)
+				root_node.add_child(bullet)

@@ -7,6 +7,8 @@ extends Node3D
 
 var fire_cadence = 0.2
 var fire_cooldown = 0.0
+var current_level
+var level_loaded = false
 
 func _ready():
 	debug_overlay.init(player)
@@ -15,7 +17,6 @@ func _ready():
 		$Boundary/TopWall.position.z, 
 		$Boundary/BottomWall.position.z)
 	GameManager.spawn_stars(self)
-	GameManager.spawn_asteroids(self)
 	player.init()
 	GameManager.set_player(player)
 	player.update_hud.connect(_on_update_hud)
@@ -23,16 +24,28 @@ func _ready():
 
 	
 func _process(delta: float) -> void:
-	GameManager.process_background(self, delta)
-	if Input.is_action_pressed("shoot") and fire_cooldown <= 0:
-		fire_bullet()
-	fire_cooldown -= delta
-	GameManager.process_debris(delta)
+	if level_loaded:
+		GameManager.process_background(self, delta)
+		GameManager.process_debris(delta)
+		current_level.process(self, delta)
+		if Input.is_action_pressed("shoot") and fire_cooldown <= 0:
+			fire_bullet()
+		fire_cooldown -= delta
+		
+	else:
+		current_level = LevelManager.load_level("tutorial")
+		current_level.init(self)
+		level_loaded = true
+		
+
 
 func fire_bullet():
 	if Utils.is_valid_node(player):
 		fire_cooldown = fire_cadence
 		GameManager.fire_player_weapon(self)
+		
+func _on_weapon_fired(enemy, event):		
+	GameManager.fire_enemy_weapon(self, enemy, event)
 	
 func _on_update_hud():
 	hud.set_player_values(player)

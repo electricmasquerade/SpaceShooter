@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://bifwsitr36pwh"]
+
+[ext_resource type="PackedScene" uid="uid://btjqavek4jyrb" path="res://models/alien_ship.blend" id="1_1r04w"]
+[ext_resource type="Script" uid="uid://bcblm8sqhqpib" path="res://scripts/enemy.gd" id="1_8kip0"]
+[ext_resource type="Material" uid="uid://dqw5n5gaud0k6" path="res://shaders/alien_metal.tres" id="2_8kip0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6yweo"]
+radius = 1.25
+
+[node name="AlienShip" type="Area3D" groups=["enemies"]]
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_8kip0")
+
+[node name="alien_ship" parent="." instance=ExtResource("1_1r04w")]
+
+[node name="Suzanne" parent="alien_ship" index="0" groups=["modules"]]
+surface_material_override/0 = ExtResource("2_8kip0")
+
+[node name="Hitbox" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_6yweo")
+
+[node name="Weapons" type="Node3D" parent="."]
+
+[node name="Main" type="Node3D" parent="Weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.827201)
+
+[node name="Direction" type="Node3D" parent="Weapons/Main"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.52158)
+
+[editable path="alien_ship"]

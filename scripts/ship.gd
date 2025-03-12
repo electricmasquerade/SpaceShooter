@@ -101,7 +101,6 @@ func remove_shield():
 	
 	
 func process_hit(area, enemy_impact):
-	print(area)
 	var value = get_hit_points(area, enemy_impact)
 	if shield_power > 0:
 		shield_hit(value)

@@ -24,3 +24,6 @@ func create_debris_from_module(root_node, module, scale):
 	debris.scale_object_local(scale)
 	debris.position = module.global_transform.origin
 	root_node.add_child(debris)
+	
+func get_random_x_in_viewport(padding = 0.0):
+	return randf_range(GameManager.boundary.left + padding, GameManager.boundary.right - padding)
