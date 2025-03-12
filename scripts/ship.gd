@@ -136,7 +136,6 @@ func _on_area_3d_area_entered(area):
 func _on_shield_area_entered(area):
 	var bullet_impact = area.is_in_group("alien_bullet")
 	var enemy_impact = area.is_in_group("enemies")
-	print(area)
 	if bullet_impact or enemy_impact:
 		process_hit(area, enemy_impact)
 		
