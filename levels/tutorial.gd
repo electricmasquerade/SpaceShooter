@@ -2,6 +2,9 @@ extends Node
 
 var asteroid_scene = preload("res://scenes/asteroid.tscn")
 var alien_ship_scene = preload("res://scenes/alien_ship.tscn")
+var alien_bullet_scene = preload("res://scenes/alien_bullet.tscn")
+var powerup_w_scene = preload("res://scenes/powerup_w.tscn")
+var powerup_s_scene = preload("res://scenes/powerup_s.tscn")
 
 var timeline = []
 var elapsed_time = 0.0
@@ -44,6 +47,8 @@ func get_asteroid_wave():
 		
 func get_alien_ship_wave():
 	var wave = []
+	#randomly pick a power_up index
+	var power_up_index = randi_range(0,10)
 	for i in 11:
 		wave.append({
 			"enemy": alien_ship_scene,
@@ -53,17 +58,18 @@ func get_alien_ship_wave():
 				"scale": Vector3(5,5,5),
 				"direction": Vector3(0,0, 2),
 				"rotation": Vector3(0,0,0),
+				"power_up": powerup_w_scene if i == power_up_index else null
 				
 			},
 			"timeline": get_alien_ship_timeline()
 		})
 	return wave
 		
-func get_alien_ship_timeline():		
+func get_alien_ship_timeline():
 	return [{
 		"timestamp": 5, 
 		"fire": {
-			"shot": alien_ship_scene,
+			"shot": alien_bullet_scene,
 			"weapon": "Main",
 		}
 	}

@@ -3,6 +3,7 @@ extends Area3D
 
 var lifecycle = Lifecycle.new();
 var weapons = []
+var power_up
 
 func init(root_node, spawn, timeline):
 	for node in get_children():

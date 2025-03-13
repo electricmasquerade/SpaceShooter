@@ -37,6 +37,7 @@ enemies=""
 bullet=""
 modules=""
 alien_bullet=""
+powerups=""
 
 [input]
 

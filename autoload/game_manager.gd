@@ -84,6 +84,9 @@ func create_explosion(root_node, source_node, width, height):
 		width, height, speed)
 	root_node.add_child(explosion)
 	# TODO: Play sounds
+	
+	if source_node is Enemy:
+		spawn_power_up(root_node, source_node)
 	if source_node.is_in_group("modules"):
 		for module in Utils.get_all_children(source_node):
 			if module is MeshInstance3D:
@@ -128,6 +131,19 @@ func fire_enemy_weapon(root_node, enemy, event):
 	for weapon in enemy.weapons:
 		if weapon.name == event.fire.weapon:
 			if is_in_boundary(weapon,false):
-				var bullet = bullet_scene.instantiate()
-				bullet.init(weapon)
-				root_node.add_child(bullet)
+				var number_of_bullets = Utils.get_leaf(event.fire, "burst", 1)
+				var cadence = Utils.get_leaf(event.fire, "cadence", 1)
+				for i in number_of_bullets:
+					if Utils.is_valid_node(enemy):
+						var bullet = event.fire.shot.instantiate()
+						bullet.init(weapon, enemy.rotation.y)
+						root_node.add_child(bullet)
+						if number_of_bullets > 1:
+							await get_tree().create_timer(cadence).timeout
+
+func spawn_power_up(root_node, enemy):
+	var power_up_scene = enemy.power_up
+	if power_up_scene != null:
+		var power_up = power_up_scene.instantiate()
+		power_up.init(enemy)
+		root_node.add_child(power_up)

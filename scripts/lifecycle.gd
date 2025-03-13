@@ -31,14 +31,17 @@ func init(root_node, enemy, _spawn, _timeline):
 	enemy_destroyed.connect(Callable(root_node, "_on_enemy_destroyed"))
 	bullet_hit.connect(Callable(root_node, "_on_show_hit_effect"))
 	weapon_fired.connect(Callable(root_node, "_on_weapon_fired"))
-	
+	if spawn.has("power_up"):
+		enemy.power_up = spawn.power_up
+		
+		
 func process(enemy, delta):
 	elapsed_time += delta
 	if elapsed_time - previous_second > 1.0:
 		previous_second +=1
 		for event in timeline:
 			if event.timestamp <= elapsed_time and !event.has("processed"):
-				process_event(enemy, event.wave)
+				process_event(enemy, event)
 				event.processed = true
 	
 	enemy.global_position.x += current_direction.x * delta
@@ -55,7 +58,7 @@ func process(enemy, delta):
 func process_event(enemy, event):
 	if event.has("fire"):
 		if event.fire.has("weapon") and GameManager.is_in_boundary(enemy):
-			weapon_fired.emit(enemy, event.fire.weapon)
+			weapon_fired.emit(enemy, event)
 
 func process_hit(enemy, area):
 	hit_points -= area.hit_points

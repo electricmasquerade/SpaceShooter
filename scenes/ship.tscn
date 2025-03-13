@@ -139,7 +139,22 @@ script = ExtResource("3_4tobq")
 [node name="Direction" type="Node3D" parent="Weapons/LeftMain"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.971014)
 
+[node name="LeftSecondary" type="Node3D" parent="Weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.82095, 0, 0.892996)
+script = ExtResource("3_4tobq")
+
+[node name="Direction" type="Node3D" parent="Weapons/LeftSecondary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.17133)
+
+[node name="RightSecondary" type="Node3D" parent="Weapons"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.82871, 0, 0.892984)
+script = ExtResource("3_4tobq")
+
+[node name="Direction" type="Node3D" parent="Weapons/RightSecondary"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.836049)
+
 [node name="Shield" type="Area3D" parent="."]
+visible = false
 
 [node name="Sphere" type="MeshInstance3D" parent="Shield"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 1.6)

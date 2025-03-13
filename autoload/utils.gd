@@ -27,3 +27,6 @@ func create_debris_from_module(root_node, module, scale):
 	
 func get_random_x_in_viewport(padding = 0.0):
 	return randf_range(GameManager.boundary.left + padding, GameManager.boundary.right - padding)
+
+func get_leaf(node, leaf, default):
+	return node[leaf] if node.has(leaf) else default

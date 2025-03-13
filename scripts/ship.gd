@@ -128,9 +128,12 @@ func get_hit_points(area, enemy_impact):
 func _on_area_3d_area_entered(area):
 	var bullet_impact = area.is_in_group("alien_bullet")
 	var enemy_impact = area.is_in_group("enemies")
+	var power_up_impact = area.is_in_group("powerups")
 	if bullet_impact or enemy_impact:
 		ship_emission = MAX_EMISSION
 		process_hit(area, enemy_impact)
+	elif power_up_impact:
+		process_power_up(area)
 		
 func _on_shield_area_entered(area):
 	var bullet_impact = area.is_in_group("alien_bullet")
@@ -145,3 +148,24 @@ func reset_material():
 func set_emission():
 	body_mesh.get_active_material(0).emission = Color(ship_emission, ship_emission, ship_emission,1)
 	
+func activate_side_weapons():
+	$ship/Weapons2.show()
+	for weapon in weapons:
+		if weapon.name == "RightSecondary":
+			weapon.active = true
+		if weapon.name == "LeftSecondary":
+			weapon.active = true
+			
+func activate_shield():
+	shield_collision.set_deferred("enabled", true)
+	shield.visible = true
+	
+func process_power_up(power_up):
+	if power_up.shield_boost:
+		if shield_power == 0:
+			activate_shield()
+		shield_power = clampf(shield_power + 20, 0, max_shield_power)
+	if power_up.activate_side_weapons:	
+		activate_side_weapons()
+	update_hud.emit()
+	power_up.queue_free()

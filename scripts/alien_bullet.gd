@@ -3,7 +3,7 @@ extends Area3D
 var current_direction
 @export var hit_points = 10
 @export var speed = 20
-@onready var bullet_trail = $Trail
+
 
 func init(weapon, angle = 0):
 	position = weapon.global_position

@@ -28,4 +28,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.827201)
 [node name="Direction" type="Node3D" parent="Weapons/Main"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.52158)
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+
 [editable path="alien_ship"]
