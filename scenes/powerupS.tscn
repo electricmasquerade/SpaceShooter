@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://o1i21y6rgxei"]
+
+[ext_resource type="Script" uid="uid://bab8qe1ul1njq" path="res://scripts/powerup.gd" id="1_cuir4"]
+[ext_resource type="PackedScene" uid="uid://ckayb7456s7rj" path="res://models/powerups.blend" id="1_j611o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cuir4"]
+albedo_color = Color(0, 0.384314, 1, 1)
+metallic = 1.0
+roughness = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_mok0g"]
+
+[node name="PowerupS" type="Area3D" groups=["powerups"]]
+collision_layer = 32
+script = ExtResource("1_cuir4")
+shield_boost = 20.0
+
+[node name="powerups" parent="." instance=ExtResource("1_j611o")]
+
+[node name="Weapons" parent="powerups" index="0"]
+visible = false
+
+[node name="Shields" parent="powerups" index="1" groups=["powerups"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.127665, 0, 0)
+surface_material_override/0 = SubResource("StandardMaterial3D_cuir4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_mok0g")
+
+[editable path="powerups"]
